@@ -2,7 +2,6 @@ import Models.PackageType;
 import Models.Package;
 import Models.Response;
 import User.User;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.security.MessageDigest;
 
@@ -72,6 +71,19 @@ public class Main extends Controller {
     public Package onJoinRoom(Package pkg, User user) {
         String roomId = roomManagement.joinRoom(pkg.get("room_id"), user);
         return new Response("");
+    }
+
+    @Override
+    public Package onLogout(Package pkg, User user) {
+        userManagement.logout(user);
+        return new Package(PackageType.LOGGEDOUT);
+    }
+    @Override
+    public Package onDisconnect(Package pkg, User user) {
+        if (user.getUsername() != null)  {
+            userManagement.logout(user);
+        }
+        return new Package(PackageType.BYE);
     }
 
     @Override

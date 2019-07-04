@@ -57,4 +57,8 @@ public class UserManagement {
             throw new RuntimeException("Wir haben mehrere User mit dem gleichen Benutzername.");
         }
     }
+
+    public void logout(User user) {
+        activeUsers.remove(user);
+    }
 }

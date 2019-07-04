@@ -6,7 +6,7 @@ public class Controller {
         throw new RuntimeException("onLogin ist nicht implementiert.");
     }
 
-    public Package onLogout(Package pkg) {
+    public Package onLogout(Package pkg, User user) {
         throw new RuntimeException("onLogout ist nicht implementiert.");
     }
 
@@ -14,7 +14,7 @@ public class Controller {
         throw new RuntimeException("onConnect ist nicht implementiert.");
     }
 
-    public Package onDisconnect(Package pkg) {
+    public Package onDisconnect(Package pkg, User user) {
         throw new RuntimeException("onDisconnect ist nicht implementiert.");
     }
 
@@ -30,7 +30,7 @@ public class Controller {
         throw new RuntimeException("onInvite ist nicht implementiert.");
     }
 
-    public Package onLeaveRoom(Package pkg) {
+    public Package onLeaveRoom(Package pkg, User user) {
         throw new RuntimeException("onLeaveRoom ist nicht implementiert.");
     }
     public Package onWhoAmI(Package pkg, User user) {

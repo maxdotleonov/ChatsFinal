@@ -29,7 +29,7 @@ public class TCPServerClientHandler extends TCPServer {
             while ((inputLine = in.readLine()) != null) {
                 outputLine = handlePackage(inputLine).toString();
                 out.println(outputLine);
-                if (outputLine.equals("Bye"))
+                if (outputLine.equals(PackageType.BYE.toString() + ":"))
                     break;
             }
             socket.close();
@@ -41,12 +41,13 @@ public class TCPServerClientHandler extends TCPServer {
 
     private Package handlePackage(String input) {
         Package pkg = new Package(input);
+        Package res;
         switch (pkg.getType()) {
             case CONNECT:
                 return new Response("Welcome client");
             case LOGIN:
                 pkg.put("client_ip", socket.getRemoteSocketAddress().toString());
-                Package res = controller.onLogin(pkg);
+                res = controller.onLogin(pkg);
                 if (res.getType() == PackageType.LOGGEDIN) {
                     user.setUsername(pkg.get("username"));
                 }
@@ -57,6 +58,16 @@ public class TCPServerClientHandler extends TCPServer {
                 return controller.onJoinRoom(pkg, user);
             case WHOAMI:
                 return controller.onWhoAmI(pkg, user);
+            case LOGOUT:
+                res =  controller.onLogout(pkg, user);
+                if (res.getType() == PackageType.LOGGEDOUT) {
+                    user = new User();
+                }
+                return res;
+            case DISCONNECT:
+                return controller.onDisconnect(pkg, user);
+            case LEAVE_ROOM:
+                return controller.onLeaveRoom(pkg, user);
             default:
                 return new Response("Leider konnte ich deine Anfrage nich verstehen");
         }

@@ -18,9 +18,11 @@ public enum PackageType {
     USER_STATUS,
     REGISTERED,
     LOGGEDIN,
+    LOGGEDOUT,
     LOGIN_ERROR,
     ALREADY_LOGGEDIN,
-    WHOAMI
+    WHOAMI,
+    BYE
     ;
 
     public static PackageType findByString(String string) {
