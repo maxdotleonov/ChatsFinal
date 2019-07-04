@@ -12,7 +12,7 @@ public class Package {
     final String KEYVALUE_DELIMITER = "=";
 
     PackageType type = PackageType.EMPTY;
-    Map<String,String> payload;
+    private HashMap<String,String> payload = new HashMap<>();
 
     public Package(){
 
@@ -54,14 +54,14 @@ public class Package {
 
     public String get(String key) {
         try {
-            return this.payload.get(key);
+            return this.getPayload().get(key);
         }catch (NullPointerException e) {
             return null;
         }
     }
 
     public Package put(String key, String value) {
-        this.payload.put(key, value);
+        payload.put(key, value);
         return this;
     }
 
@@ -77,7 +77,7 @@ public class Package {
         return payload;
     }
 
-    public void setPayload(Map<String, String> payload) {
+    public void setPayload(HashMap<String, String> payload) {
         this.payload = payload;
     }
 

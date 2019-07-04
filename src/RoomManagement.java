@@ -1,3 +1,5 @@
+import Models.Package;
+import Models.PackageType;
 import Models.Room;
 import User.User;
 
@@ -11,8 +13,9 @@ public class RoomManagement {
         rooms = new HashMap<>();
     }
 
-    public String joinRoom(String id, User user) {
+    public Room joinRoom(String id, User user) {
         Room room;
+
         if (id == null) {
             room = new Room();
             room.addUser(user);
@@ -25,6 +28,10 @@ public class RoomManagement {
             room.addUser(user);
         }
 
-        return room.getId();
+        return room;
+    }
+
+    public Room findRoom(String id) {
+        return rooms.get(id);
     }
 }

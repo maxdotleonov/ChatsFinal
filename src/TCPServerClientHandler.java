@@ -2,6 +2,7 @@ import Models.Package;
 import Models.PackageType;
 import Models.Response;
 import User.User;
+import User.Client;
 
 import java.io.*;
 import java.net.Socket;
@@ -10,6 +11,9 @@ public class TCPServerClientHandler extends TCPServer {
     private boolean running;
     private Socket socket;
     private User user = new User();
+    private Client client = new Client();
+    private PrintWriter out;
+
     public TCPServerClientHandler(Socket socket, Controller controller) {
         super(controller);
         this.socket = socket;
@@ -23,6 +27,7 @@ public class TCPServerClientHandler extends TCPServer {
                         new InputStreamReader(
                                 socket.getInputStream()));
         ) {
+            this.out = out;
             String inputLine, outputLine;
             out.println("");
 
@@ -44,10 +49,10 @@ public class TCPServerClientHandler extends TCPServer {
         Package res;
         switch (pkg.getType()) {
             case CONNECT:
-                return new Response("Welcome client");
+                //todo: set client
+                return controller.onConnect(pkg, socket.getRemoteSocketAddress()pkg);
             case LOGIN:
-                pkg.put("client_ip", socket.getRemoteSocketAddress().toString());
-                res = controller.onLogin(pkg);
+                res = controller.onLogin(pkg, client);
                 if (res.getType() == PackageType.LOGGEDIN) {
                     user.setUsername(pkg.get("username"));
                 }
@@ -68,8 +73,20 @@ public class TCPServerClientHandler extends TCPServer {
                 return controller.onDisconnect(pkg, user);
             case LEAVE_ROOM:
                 return controller.onLeaveRoom(pkg, user);
+            case INVITE:
+                return controller.onInvite(pkg, user);
             default:
                 return new Response("Leider konnte ich deine Anfrage nich verstehen");
         }
+    }
+
+    public void send(Package pkg) {
+        String outputLine;
+        outputLine = pkg.toString();
+        out.println(outputLine);
+    }
+
+    public User getUser(){
+        return user;
     }
 }

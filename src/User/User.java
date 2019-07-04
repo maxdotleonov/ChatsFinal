@@ -1,10 +1,11 @@
 package User;
-
+import java.beans.Transient;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
     private String username;
-    private Client client;
+    private transient Client client;
     private String passwordHash;
 
     public String getUsername() {
@@ -15,6 +16,7 @@ public class User {
         this.username = username;
     }
 
+    @Transient
     public Client getClient() {
         return client;
     }

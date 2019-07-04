@@ -1,8 +1,11 @@
 import Models.Package;
 import User.User;
+import User.Client;
+
+import java.net.SocketAddress;
 
 public class Controller {
-    public Package onLogin(Package pkg) {
+    public Package onLogin(Package pkg, Client client) {
         throw new RuntimeException("onLogin ist nicht implementiert.");
     }
 
@@ -10,7 +13,7 @@ public class Controller {
         throw new RuntimeException("onLogout ist nicht implementiert.");
     }
 
-    public Package onConnect(Package pkg) {
+    public Package onConnect(Package pkg, SocketAddress remoteAddress) {
         throw new RuntimeException("onConnect ist nicht implementiert.");
     }
 
@@ -26,7 +29,7 @@ public class Controller {
         throw new RuntimeException("onJoinRoom ist nicht implementiert.");
     }
 
-    public Package onInvite(Package pkg) {
+    public Package onInvite(Package pkg, User user) {
         throw new RuntimeException("onInvite ist nicht implementiert.");
     }
 

@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Room {
 
     private String id;
-    private ArrayList<User> users;
+    private ArrayList<User> users = new ArrayList<User>();
 
     public Room() {
         setId(UUID.randomUUID().toString());
@@ -24,5 +24,17 @@ public class Room {
 
     public void addUser(User user) {
         users.add(user);
+    }
+
+    public int size() {
+        return users.size();
+    }
+
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+
+    public boolean hasUser(User user) {
+        return users.contains(user);
     }
 }
