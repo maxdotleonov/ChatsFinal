@@ -9,13 +9,13 @@ import java.net.UnknownHostException;
 
 public class UDPServer extends Thread {
     private DatagramSocket socket;
-    private InetAddress inetAddress;
     private int port;
 
     public UDPServer(String ipAddress, int port) {
         this.port = port;
+        InetAddress inetAddress;
         try {
-            this.inetAddress = InetAddress.getByName(ipAddress);
+            inetAddress = InetAddress.getByName(ipAddress);
         } catch (UnknownHostException e) {
             throw new RuntimeException("Konnte localhost nicht auflösen");
         }
@@ -34,7 +34,7 @@ public class UDPServer extends Thread {
 
     public void sendToUser(User user, Package pkg) {
         byte[] data;
-        data = pkg.toString().getBytes();
+        data = (pkg.toString() + "\n").getBytes();
         DatagramPacket req = new DatagramPacket(data, data.length, user.getClient().getTcpIpAddress(), user.getClient().getUdpPort());
         try{
             socket.send(req);

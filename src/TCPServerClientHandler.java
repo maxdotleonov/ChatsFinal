@@ -39,7 +39,7 @@ public class TCPServerClientHandler extends TCPServer {
             }
             socket.close();
         } catch (IOException e) {
-            e.printStackTrace();//
+            e.printStackTrace();
             throw new RuntimeException("Unerwarteter Fehler in der TCP Kommunikation");
         }
     }
@@ -49,12 +49,14 @@ public class TCPServerClientHandler extends TCPServer {
         Package res;
         switch (pkg.getType()) {
             case CONNECT:
-                //todo: set client
-                return controller.onConnect(pkg, socket.getRemoteSocketAddress()pkg);
+                client.setTcpIpAddress(socket.getRemoteSocketAddress());
+                client.setUdpPort(Integer.valueOf(pkg.get("udp_port")));
+                return controller.onConnect(pkg, socket.getRemoteSocketAddress());
             case LOGIN:
                 res = controller.onLogin(pkg, client);
                 if (res.getType() == PackageType.LOGGEDIN) {
                     user.setUsername(pkg.get("username"));
+                    user.setClient(client);
                 }
                 return res;
             case REGISTER:

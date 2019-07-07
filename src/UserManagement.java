@@ -71,11 +71,11 @@ public class UserManagement {
             return 0;
         } else if (userToLogin.size() == 1) {
             User user = userToLogin.get(0);
-            user.setClient(client);
             if (activeUsers.contains(user)) {
                 return 2;
             }
             //todo: check password
+            user.setClient(client);
             activeUsers.add(user);
             return 1;
         } else {

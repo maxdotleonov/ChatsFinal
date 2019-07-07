@@ -10,6 +10,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 
 import static Models.PackageType.CONNECT_FAILED;
+import static Models.PackageType.CONNECT_SUCCESSFULL;
 
 public class Main extends Controller {
 
@@ -133,6 +134,6 @@ public class Main extends Controller {
         if(pkg.get("udp_port") == null) {
             return new Package(CONNECT_FAILED, "Udp port wurde nicht an den Server weitergegeben");
         }
-        new Client()
+        return new Package(CONNECT_SUCCESSFULL);
     }
 }

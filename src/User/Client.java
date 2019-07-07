@@ -13,6 +13,8 @@ public class Client {
         setTcpIpAddress(address);
     }
 
+    public Client() {}
+
     public InetAddress getTcpIpAddress() {
         return tcpIpAddress;
     }
