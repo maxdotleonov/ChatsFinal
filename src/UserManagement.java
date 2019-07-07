@@ -1,7 +1,6 @@
 import User.User;
 import User.Client;
 
-import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -74,7 +73,8 @@ public class UserManagement {
             if (activeUsers.contains(user)) {
                 return 2;
             }
-            //todo: check password
+            //todo: check passwort gegen den gespeicherten MD5 Hash des passworts google: java md5 hash erzeugen
+
             user.setClient(client);
             activeUsers.add(user);
             return 1;

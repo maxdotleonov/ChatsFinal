@@ -77,6 +77,8 @@ public class TCPServerClientHandler extends TCPServer {
                 return controller.onLeaveRoom(pkg, user);
             case INVITE:
                 return controller.onInvite(pkg, user);
+            case MESSAGE:
+                return controller.onMessage(pkg, user);
             default:
                 return new Response("Leider konnte ich deine Anfrage nich verstehen");
         }

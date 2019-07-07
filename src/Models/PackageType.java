@@ -18,6 +18,7 @@ public enum PackageType {
     INVITE_FAILED,
     LEAVE_ROOM,
     MESSAGE,
+    MESSAGE_SENT,
     // SERVER TO CLIENT EVENTS
     JOINED_ROOM,
     LEFT_ROOM,

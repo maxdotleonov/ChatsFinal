@@ -7,10 +7,8 @@ import User.Client;
 
 import java.net.SocketAddress;
 import java.security.MessageDigest;
-import java.util.ArrayList;
 
-import static Models.PackageType.CONNECT_FAILED;
-import static Models.PackageType.CONNECT_SUCCESSFULL;
+import static Models.PackageType.*;
 
 public class Main extends Controller {
 
@@ -18,7 +16,6 @@ public class Main extends Controller {
     private TCPServer tcpServer;
     private UserManagement userManagement;
     private RoomManagement roomManagement;
-    private ArrayList<Client> unclaimedClients = new ArrayList<Client>();
 
     private Main() {
         tcpServer = new TCPServer("127.0.0.1",6666, this);
@@ -47,6 +44,11 @@ public class Main extends Controller {
         return new Package(PackageType.LOGIN_ERROR, "Username oder Passwort falsch");
     }
 
+    /**
+     * Client übermittelt username,password und password_repeat werden als md5 hash gespeichert.
+     * @param pkg
+     * @return
+     */
     @Override
     public Package onRegister(Package pkg) {
         if (pkg.get("username") == null || pkg.get("password") == null || pkg.get("password_repeat") == null) {
@@ -55,7 +57,7 @@ public class Main extends Controller {
         if (!pkg.get("password").equals(pkg.get("password_repeat"))){
             return new Response("Passwörter stimmen nicht überein.");
         }
-        //todo: check if user already exists
+        //todo: check if user already exists, if so return REGISTER_FAILED
         User user = new User();
         user.setUsername(pkg.get("username"));
         user.setPasswordHash(getMD5Hash(pkg.get("password")));
@@ -135,5 +137,15 @@ public class Main extends Controller {
             return new Package(CONNECT_FAILED, "Udp port wurde nicht an den Server weitergegeben");
         }
         return new Package(CONNECT_SUCCESSFULL);
+    }
+
+    @Override
+    public Package onMessage(Package pkg, User user) {
+        //todo: which room id get from pkg ?
+        //todo: roomManagement getRoom ?
+        //todo: user in room ?
+        //todo: pkg.set("username",user.getUsername())
+        //todo: forEach userToSendTo -> udpServer.sendToUser(pkg,userToSendTo) Zeile: 87
+        return new Package(MESSAGE_SENT);
     }
 }

@@ -4,7 +4,7 @@ import User.Client;
 
 import java.net.SocketAddress;
 
-public class Controller {
+public abstract class Controller {
     public Package onLogin(Package pkg, Client client) {
         throw new RuntimeException("onLogin ist nicht implementiert.");
     }
@@ -38,5 +38,9 @@ public class Controller {
     }
     public Package onWhoAmI(Package pkg, User user) {
         throw new RuntimeException("onWhoAmI ist nicht implementiert.");
+    }
+
+    public Package onMessage(Package pkg, User user) {
+        throw new RuntimeException("onMessage ist nicht implementiert");
     }
 }
