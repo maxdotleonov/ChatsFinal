@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class TCPServer extends Thread {
 
-    ServerSocket welcomeSocket;
+    private ServerSocket welcomeSocket;
     private int port;
     private InetAddress inetAddress;
     protected Controller controller;

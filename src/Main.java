@@ -1,7 +1,5 @@
-import Models.PackageType;
+import Models.*;
 import Models.Package;
-import Models.Response;
-import Models.Room;
 import User.User;
 import User.Client;
 
@@ -58,6 +56,7 @@ public class Main extends Controller {
             return new Response("Passwörter stimmen nicht überein.");
         }
         //todo: check if user already exists, if so return REGISTER_FAILED
+        // userManagement.findUser(pkg.get("username")) if not null -> user exists return ERROR
         User user = new User();
         user.setUsername(pkg.get("username"));
         user.setPasswordHash(getMD5Hash(pkg.get("password")));
@@ -89,6 +88,22 @@ public class Main extends Controller {
         Package resPkg = new Package(PackageType.JOINED_ROOM);
         resPkg.put("room_id", room.getId());
         return resPkg;
+    }
+
+    @Override
+    public Package onLeaveRoom(Package pkg, User user) {
+        Room room = roomManagement.findRoom(pkg.get("room_id"));
+        if (room == null) {
+            return new ErrorResponse("Dieser Raum existiert nicht");
+        }
+        if (!room.getUsers().contains(user)) {
+            return new ErrorResponse("Du bist nicht in diesem Raum");
+        }
+        room.leaveRoom(user);
+        Package introPkg = new Package(PackageType.SOMEONE_LEFT_ROOM);
+        introPkg.put("username", user.getUsername());
+        room.getUsers().forEach(u -> udpServer.sendToUser(u, introPkg));
+        return new Package(LEFT_ROOM);
     }
 
     @Override

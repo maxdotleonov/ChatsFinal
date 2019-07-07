@@ -37,4 +37,8 @@ public class Room {
     public boolean hasUser(User user) {
         return users.contains(user);
     }
+
+    public void leaveRoom(User user) {
+        users.remove(user);
+    }
 }

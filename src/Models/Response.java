@@ -1,8 +1,5 @@
 package Models;
 
-import Models.Package;
-import Models.PackageType;
-
 import java.util.HashMap;
 
 public class Response extends Package {

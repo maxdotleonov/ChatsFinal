@@ -1,5 +1,3 @@
-import Models.Package;
-import Models.PackageType;
 import Models.Room;
 import User.User;
 

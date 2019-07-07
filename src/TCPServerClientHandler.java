@@ -8,7 +8,6 @@ import java.io.*;
 import java.net.Socket;
 
 public class TCPServerClientHandler extends TCPServer {
-    private boolean running;
     private Socket socket;
     private User user = new User();
     private Client client = new Client();
@@ -20,7 +19,6 @@ public class TCPServerClientHandler extends TCPServer {
     }
     @Override
     public void run() {
-        running = true;
         try (
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(

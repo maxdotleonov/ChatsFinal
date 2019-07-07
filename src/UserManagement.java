@@ -76,7 +76,7 @@ public class UserManagement {
             //todo: check passwort gegen den gespeicherten MD5 Hash des passworts google: java md5 hash erzeugen
 
             user.setClient(client);
-            activeUsers.add(user);
+            activateUser(user);
             return 1;
         } else {
             throw new RuntimeException("Wir haben mehrere User mit dem gleichen Benutzername.");
@@ -84,6 +84,6 @@ public class UserManagement {
     }
 
     public void logout(User user) {
-        activeUsers.remove(user);
+        deactivateUser(user);
     }
 }
